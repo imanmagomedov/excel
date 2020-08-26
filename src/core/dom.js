@@ -8,16 +8,13 @@ class Dom {
   html(html) {
     if (typeof html === 'string') {
       this.$el.innerHTML = html
-
       return this
-    } else {
-      return this.$el.outerHTML.trim()
     }
+    return this.$el.outerHTML.trim()
   }
 
   clear() {
     this.html('')
-
     return this
   }
 
@@ -42,6 +39,30 @@ class Dom {
 
     return this
   }
+
+  get data() {
+    return this.$el.dataset
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  css(styles = {}) {
+    Object
+        .keys(styles)
+        .forEach(key => {
+          this.$el.style[key] = styles[key]
+        })
+  }
 }
 
 export function $(selector) {
@@ -53,6 +74,5 @@ $.create = (tagName, classes = '') => {
   if (classes) {
     el.classList.add(classes)
   }
-
   return $(el)
 }
